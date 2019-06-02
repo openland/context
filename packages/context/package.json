@@ -1,16 +1,10 @@
 {
     "name": "@openland/context",
     "description": "Context is a library for easy context passing",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
     "repository": "https://github.com/openland/context",
     "author": "Steve Kite <steve@openland.com>",
-    "license": "MIT",
-    "dependencies": {
-
-    },
-    "peerDependencies": {
-
-    }
+    "license": "MIT"
 }
