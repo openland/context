@@ -1,10 +1,4 @@
 {
-  "name": "react-mental-root",
-  "version": "1.0.0",
-  "description": "Mental version of React development tools",
-  "repository": "https://github.com/mentaljs/react-mental.git",
-  "author": "Steve Kite <steve@openland.com>",
-  "license": "MIT",
   "private": true,
   "workspaces": {
     "packages": [
