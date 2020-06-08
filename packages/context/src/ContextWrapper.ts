@@ -1,10 +1,12 @@
-import { Context } from './Context';
+import { Context, ContextSymbol } from './Context';
+import { BaseContext } from './BaseContext';
 
-export abstract class ContextWrapper implements Context {
-    readonly isContext: true = true;
-    readonly ctx: Context;
+export abstract class ContextWrapper extends BaseContext {
+    readonly [ContextSymbol]: Context;
 
     constructor(src: Context) {
-        this.ctx = src;
+        super();
+        this[ContextSymbol] = src;
+        Object.freeze(this);
     }
 }

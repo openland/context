@@ -1,3 +1,4 @@
-export interface Context {
-    readonly isContext: true;
-}
+export interface Context { }
+
+export const ContextSymbol = Symbol();
+export const ContextValuesSymbol = Symbol();

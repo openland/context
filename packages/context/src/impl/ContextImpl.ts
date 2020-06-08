@@ -1,10 +1,15 @@
+import { ContextSymbol, ContextValuesSymbol } from './../Context';
 import { Context } from '../Context';
+import { BaseContext } from '../BaseContext';
 
-export class ContextImpl implements Context {
-    readonly isContext: true = true;
-    readonly values: { [key: string]: any };
+export class ContextImpl extends BaseContext {
+    readonly [ContextSymbol]: Context;
+    readonly [ContextValuesSymbol]: { [key: string]: any };
 
     constructor(values: { [key: string]: any }) {
-        this.values = values;
+        super();
+        this[ContextValuesSymbol] = values;
+        this[ContextSymbol] = this;
+        Object.freeze(this);
     }
 }

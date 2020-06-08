@@ -1,7 +1,7 @@
+import { ContextSymbol, ContextValuesSymbol } from './../Context';
 import { ContextNamespace } from '../ContextNamespace';
 import { Context } from '../Context';
 import { ContextImpl } from './ContextImpl';
-import { ContextWrapper } from '../ContextWrapper';
 
 export class ContextNamespaceImpl<T> implements ContextNamespace<T> {
     readonly name: string;
@@ -10,19 +10,17 @@ export class ContextNamespaceImpl<T> implements ContextNamespace<T> {
     constructor(name: string, defaultValue?: T) {
         this.name = name;
         this.defaultValue = defaultValue;
+        Object.freeze(this);
     }
 
     get(context: Context): T {
-        let raw: ContextImpl;
-        if (context instanceof ContextImpl) {
-            raw = context;
-        } else {
-            raw = (context as ContextWrapper).ctx as ContextImpl;
+        if (!context[ContextSymbol]) {
+            throw Error('Invalid context object');
         }
-        if (!raw) {
-            console.log(context);
-        }
-        let val = raw.values[this.name];
+
+        let raw = context[ContextSymbol] as ContextImpl;
+        let values = raw[ContextValuesSymbol] as { [key: string]: any };
+        let val = values[this.name];
         if (val) {
             return val as T;
         } else {
@@ -35,13 +33,12 @@ export class ContextNamespaceImpl<T> implements ContextNamespace<T> {
     }
 
     set(context: Context, value: T | undefined): Context {
-        let raw: ContextImpl;
-        if (context instanceof ContextImpl) {
-            raw = context;
-        } else {
-            raw = (context as ContextWrapper).ctx as ContextImpl;
+        if (!context[ContextSymbol]) {
+            throw Error('Invalid context object');
         }
-        let values = { ...raw.values };
+
+        let raw = context[ContextSymbol] as ContextImpl;
+        let values = { ...(raw[ContextValuesSymbol] as { [key: string]: any }) };
         values[this.name] = value;
         return new ContextImpl(values);
     }
