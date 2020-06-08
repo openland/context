@@ -1,4 +1,4 @@
-export { Context } from './Context';
+export { Context, isContext } from './Context';
 export { ContextWrapper } from './ContextWrapper';
 export { ContextNamespace } from './ContextNamespace';
 export { ContextNamespaceType } from './ContextNamespaceType';
